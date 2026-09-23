@@ -82,22 +82,54 @@ def fallback_split(
 
 def split_documents(documents: list[Document]) -> list[Chunk]:
     """
-    Split documents into chunks. ⚠️ REPLACE THE BODY OF THIS IN MILESTONE 3.
+    Split on paragraph breaks (blank lines), merging adjacent paragraphs
+    until each chunk reaches config.CHUNK_SIZE.
 
-    Right now it just calls the fallback. That is the plain, generic behaviour
-    the brief is talking about.
+    campus_life documents are short (2-5 paragraphs, under 600 characters
+    total) and the first paragraph is usually a one-line title — too small
+    to answer a question on its own. Splitting on every blank line would
+    hand that title back as its own chunk, so paragraphs are accumulated
+    into a buffer and only closed off into a chunk once the buffer is long
+    enough to stand alone. Whatever's left when a document runs out of
+    paragraphs becomes the last chunk, however short.
 
-    When you write your own strategy, set `produced_by` to
-    "chunker.py::split_documents" so your README's Sample Chunks section names
-    the right function. `app.py chunks` prints that string for you.
-
-    Things worth thinking about before you write any code:
-      - Are your documents short posts or long guides?
-      - Is the useful information in one sentence, or spread over a paragraph?
-      - Would splitting on paragraph breaks keep more thoughts intact than
-        splitting on a character count?
+    No character-level overlap: chunks never cut a paragraph in half, so
+    there's no boundary to protect with shared characters.
     """
-    return fallback_split(documents)
+    min_chunk_size = config.CHUNK_SIZE
+    chunks: list[Chunk] = []
+
+    for doc in documents:
+        paragraphs = [p.strip() for p in doc.text.split("\n\n") if p.strip()]
+
+        index = 0
+        buffer: list[str] = []
+        buffer_len = 0
+
+        def flush():
+            nonlocal index, buffer, buffer_len
+            chunks.append(
+                Chunk(
+                    text="\n\n".join(buffer),
+                    source=doc.source,
+                    index=index,
+                    produced_by="chunker.py::split_documents",
+                )
+            )
+            index += 1
+            buffer = []
+            buffer_len = 0
+
+        for paragraph in paragraphs:
+            buffer.append(paragraph)
+            buffer_len += len(paragraph)
+            if buffer_len >= min_chunk_size:
+                flush()
+
+        if buffer:
+            flush()
+
+    return chunks
 
 
 def describe(chunks: list[Chunk]) -> str:
