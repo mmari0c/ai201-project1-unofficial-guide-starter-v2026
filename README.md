@@ -115,27 +115,30 @@ Laundry costs $1.75 wash, $1.75 dry, app-based. On noise: moderate; the building
 <!-- One complete question and answer, pasted as text, with the source line
      visible. Milestone 4. -->
 
-**Question:**
+**Question: Is doing laundry at old brewhouse free? **
 
 **Answer:**
 
 ```
+No, doing laundry at Old Brewhouse is not free; it costs $1.50 for a wash and $1.50 for a dry.
 ```
 
-**My relevance cutoff:**
+**My relevance cutoff: 0.6**
 
-<!-- The number you set in config.py, and how you got there.
-
-     You ran five questions your corpus covers and the five in OUT_OF_SCOPE
-     that it clearly doesn't, and wrote down the best distance for each. What
-     did those two groups look like? Where was the gap? Put the actual numbers
-     here — the table below wants all ten rows.
-
-     Milestone 4. -->
+My in-corpus questions topped out at 0.463 and my out-of-scope questions started at 0.825, leaving a wide gap between the two. I set the cutoff on the stricter side of that gap's midpoint (~0.64) rather than dead center, because I'd rather the system refuse a borderline question than risk answering one it shouldn't.
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| When studying abroad, does my financial aid package travel with me? | Yes | 0.280 |
+| Is doing laundry at old brewhouse free? | Yes | 0.271 |
+| What will take up most of my time during my Linear Algebra course? | Yes | 0.313 |
+| What is the wait time at Pellew Dining Hall during peak? | Yes | 0.173 |
+| How long is the walk from the library to Aldridge Hall | Yes | 0.463 |
+| What is the capital of Mongolia? | No | 0.825 |
+| How do I change the oil in a diesel engine? | No | 0.934 |
+| Who won the 1994 World Cup? | No | 0.886 |
+| What is the recommended dosage of ibuprofen for a headache? | No | 0.844 |
+| How do I write a for loop in Rust? | No | 0.896 |
 
 ## How I Used AI
 
