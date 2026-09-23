@@ -23,8 +23,8 @@ For at least 4 of my 5 test questions, the retrieved chunks include one that
 contains the answer.
 
 **Why this target:**
-<!-- e.g. "One of my questions is about a topic only two documents mention, so
-     I expect that one to be hard." -->
+
+One of my questions is about a topic only mentioned in 1 documents mention, so I expect that one to be hard, especially because of the way it's worded.
 
 ---
 
@@ -33,16 +33,14 @@ contains the answer.
 Every answer the system produces names at least one source document.
 
 **Why this target:**
-<!-- Why all five and not four? What about your setup makes that achievable —
-     or what would have to go wrong for it not to be? -->
 
----
+All of the answers for my questions can be found within at least one of the documents.
 
 ## 3. The relevance gate stops out-of-corpus questions
 
 When I ask a question my documents clearly don't cover, the relevance gate
 stops it and the system returns "I don't have enough information about that" —
-in at least 4 of 5 tries.
+in at least 1 of 5 tries.
 
 <!-- The five questions are the ones in `OUT_OF_SCOPE` at the bottom of
      `questions.py`, and `run_eval.py` puts them through the gate and writes
@@ -50,12 +48,17 @@ in at least 4 of 5 tries.
      just keep five of them, or the "4 of 5" above has nothing to be 4 of. -->
 
 **Why this target:**
+
+One of the answers to my question cannot be found within the documents, though a similar theme is mentioned in one.
+
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
 ---
 
 ## 4. Something about your chunks
+
+No chunk is greater than 200 characters.
 
 <!-- YOU WRITE THIS ONE.
 
@@ -66,32 +69,24 @@ in at least 4 of 5 tries.
      what you actually saw in Milestone 3:
        - "At least 4 of 5 sampled chunks read as a complete thought, with no
           sentence cut in half at either end."
-       - "No chunk is shorter than 200 characters, since anything below that
-          in my corpus turned out to be a heading with no content under it." -->
+       - "No chunk is greater than 200 characters" -->
 
 
 
 **Why this target:**
 
-
+All of the questions are straight forward, meaning the response does not have to be longer than 2 sentences as it would be over explaining.
 
 ---
 
-## 5. Your choice
+## 5. No fabricating answers to in-corpus questions with missing facts
 
-<!-- YOU WRITE THIS ONE TOO.
-
-     Pick something you actually care about getting right. It could be about
-     speed, about refusals, about a particular kind of question your corpus
-     handles badly, about source attribution being correct rather than merely
-     present — anything, as long as it names a number or an observable
-     outcome. -->
-
-
+When I ask about a fact that's topically in my corpus but not actually
+documented the system says it doesn't have enough information rather than inventing a plausible-sounding answer in at least 4 of 5 tries.
 
 **Why this target:**
 
-
+A question like the library-to-Aldridge-Hall one will still retrieve chunks that mention both places, since they're topically close. It's on the model to notice the retrieved chunks never actually state a walk time and say so instead of filling the gap with a number that sounds right.
 
 ---
 

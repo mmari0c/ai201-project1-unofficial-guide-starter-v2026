@@ -20,7 +20,7 @@ load_dotenv(ROOT / ".env")
 # Change this to switch corpora, or pass --corpus on the command line.
 # Options are the folder names inside corpora/. See corpora/README.md.
 
-CORPUS = os.getenv("AI201_CORPUS", "city_guides")
+CORPUS = os.getenv("AI201_CORPUS", "campus_life")
 
 # Milestone 1
 
