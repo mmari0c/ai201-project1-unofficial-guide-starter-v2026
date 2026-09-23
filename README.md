@@ -27,6 +27,8 @@
 
      Milestone 5. -->
 
+This system answers questions from the "campus_life" corpus. It answers general questions a student might have, in addition to specific questions regarding housing, courses, and dining halls.
+
 ## Chunking Strategy
 
 **Chunk size: 350**
@@ -151,9 +153,9 @@ My in-corpus questions topped out at 0.463 and my out-of-scope questions started
 
      Milestone 5. -->
 
-**1.**
+I asked Claude to write the chunking function so it splits on paragraph breaks and merges adjacent paragraphs until each chunk reaches a target length, instead of the starter's fixed-size character windows. I left it as is
 
-**2.**
+I asked Claude to explain what chunks and chunk overlap were actually doing in the pipeline, and what changing each would affect, before I picked numbers.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
